@@ -7,7 +7,6 @@ import requests
 import os
 from ast import literal_eval
 from graph_generation import *
-from article_summarization import *
 import numpy as np
 import matplotlib.pyplot as plt
 import matplotlib as mpl
@@ -38,7 +37,7 @@ def main():
     project = hopsworks.login()
     dataset_api = project.get_dataset_api()
     fs = project.get_feature_store()
-    news_fg = fs.get_feature_group(name="news_articles", version=6)
+    news_fg = fs.get_feature_group(name="news_articles", version=3)
     news_df = news_fg.read()
 
     # Check data types of category and country
@@ -79,17 +78,10 @@ def main():
     dataset_api.upload("./average_sentiment_timeline.png", "Resources/images", overwrite=True)
 
     
-    # Summarize article content
-    try:
-        most_positive['content'] = most_positive.apply(summarize_article, axis=1)
-    except Exception as e: # if summarization fails, leave content as it is
-        print("Article could not be summarized")
-        print(e)
-    
     # Put most positive article and average sentiment of today in feature group
     articles_monitoring_fg = fs.get_or_create_feature_group(
         name="articles_most_positive",
-        version=3,
+        version=1,
         primary_key=['article_id'],
         description="Today's most positive article and average rating"
     )
@@ -102,7 +94,7 @@ def main():
     # Put predictions for each of today's articles in feature group
     articles_predictions_fg = fs.get_or_create_feature_group(
         name="articles_predictions",
-        version=3,
+        version=1,
         primary_key=['article_id'],
         description="Sentiment ratings of articles"
     )
