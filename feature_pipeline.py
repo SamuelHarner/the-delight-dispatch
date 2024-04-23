@@ -57,7 +57,7 @@ def main():
     # Put articles in feature store
     news_fg = fs.get_or_create_feature_group(
         name="news_articles",
-        version=6,
+        version=3,
         primary_key=['article_id'],
         description="News articles dataset"
     )
