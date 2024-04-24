@@ -3,7 +3,7 @@ name: restart-hf-space-daily
 on:
   workflow_dispatch:
   schedule:
-    - cron: '00 11 * * *'
+    - cron: '00 19 * * *'
 
 jobs:
   test_schedule:
