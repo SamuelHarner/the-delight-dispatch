@@ -31,7 +31,7 @@ def save_image_from_url(image_url, file_path):
 
 def main():
     # Get today's date
-    today = datetime.now().strftime('%Y-%m-%d')
+    today = datetime.now()
     yesterday_date = today - timedelta(days=1)
     yesterday = yesterday_date.strftime('%Y-%m-%d')
 
