@@ -1,5 +1,5 @@
 import hopsworks
-from datetime import datetime
+from datetime import datetime, timedelta
 import pandas as pd
 from transformers import pipeline
 from openai import OpenAI
