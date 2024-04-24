@@ -1,5 +1,5 @@
 import hopsworks
-from datetime import datetime, timedelta
+from datetime import datetime
 import pandas as pd
 from transformers import pipeline
 from openai import OpenAI
@@ -31,9 +31,7 @@ def save_image_from_url(image_url, file_path):
 
 def main():
     # Get today's date
-    today = datetime.now()
-    yesterday_date = today - timedelta(days=1)
-    yesterday = yesterday_date.strftime('%Y-%m-%d')
+    today = datetime.now().strftime('%Y-%m-%d')
 
     # Get news articles
     project = hopsworks.login()
@@ -47,7 +45,7 @@ def main():
     print(f'type of category: {type(news_df["category"].iloc[0])}')
 
     # Only keep news articles from yesterday
-    news_df = news_df[news_df['pubdate'] == yesterday]
+    news_df = news_df[news_df['pubdate'] == today]
 
     # Add sentiments for articles
     sentiment_pipeline = pipeline(model="distilbert-base-uncased-finetuned-sst-2-english")
