@@ -40,12 +40,16 @@ def main():
     news_fg = fs.get_feature_group(name="news_articles", version=3)
     news_df = news_fg.read()
 
+    print(news_df)
+
     # Check data types of category and country
     print(f'type of country: {type(news_df["country"].iloc[0])}')
     print(f'type of category: {type(news_df["category"].iloc[0])}')
 
     # Only keep news articles from today
     news_df = news_df[news_df['pubdate'] == today]
+
+    prtint(news_df)
 
     # Add sentiments for articles
     sentiment_pipeline = pipeline(model="distilbert-base-uncased-finetuned-sst-2-english")
