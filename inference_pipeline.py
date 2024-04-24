@@ -32,6 +32,8 @@ def save_image_from_url(image_url, file_path):
 def main():
     # Get today's date
     today = datetime.now().strftime('%Y-%m-%d')
+    yesterday_date = today - timedelta(days=1)
+    yesterday = yesterday_date.strftime('%Y-%m-%d')
 
     # Get news articles
     project = hopsworks.login()
@@ -40,16 +42,12 @@ def main():
     news_fg = fs.get_feature_group(name="news_articles", version=3)
     news_df = news_fg.read()
 
-    print(news_df)
-
     # Check data types of category and country
     print(f'type of country: {type(news_df["country"].iloc[0])}')
     print(f'type of category: {type(news_df["category"].iloc[0])}')
 
-    # Only keep news articles from today
-    news_df = news_df[news_df['pubdate'] == today]
-
-    prtint(news_df)
+    # Only keep news articles from yesterday
+    news_df = news_df[news_df['pubdate'] == yesterday]
 
     # Add sentiments for articles
     sentiment_pipeline = pipeline(model="distilbert-base-uncased-finetuned-sst-2-english")
