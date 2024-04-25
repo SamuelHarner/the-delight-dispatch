@@ -93,11 +93,11 @@ def main():
     average_sentiment = np.append(average_sentiment, avg_sentiment)
 
     # Plot most positive sentiment timeline and upload it to hopsworks
-    plot_most_positive_timeline(most_positive_sentiment, most_positive_date, n=1)
+    plot_most_positive_timeline(most_positive_sentiment, most_positive_date, n=3)
     dataset_api.upload("./most_positive_timeline.png", "Resources/images", overwrite=True)
 
     # Plot average sentiment timeline and upload it to hopsworks
-    plot_average_sentiment_timeline(average_sentiment, most_positive_date, n=1)
+    plot_average_sentiment_timeline(average_sentiment, most_positive_date, n=3)
     dataset_api.upload("./average_sentiment_timeline.png", "Resources/images", overwrite=True)
     
     # Create image today's most positive article and upload to Hopsworks
